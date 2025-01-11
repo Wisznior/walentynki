@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walentynkiii</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            overflow: hidden;
+        }
+        #valentine-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: url('https://www.boredpanda.com/blog/wp-content/uploads/2014/03/dog-photography-chuppy-golden-retriever-jessica-trinh-9.jpg');
+            background-size: cover;
+            background-position: center 0px;
+            transition: background 2s ease-in-out;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #valentine-question {
+            font-size: 2em;
+            margin-bottom: 0px;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+        #valentine-photo {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            text-align: center;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+            margin-top: -400px; /* Przesuwa cały kontener w górę */
+        }
+        #yay-text {
+            display: none;
+            font-size: 3em;
+            color: red;
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            animation: fadeIn 2s ease-in-out forwards;
+            text-align: center;
+            margin-top: -300px;
+        }
+        button {
+            cursor: pointer;
+            font-size: 1.5em;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        button:active {
+            transform: scale(0.9);
+        }
+        button#yes-button {
+            background-color: green;
+        }
+        button#yes-button:hover {
+            background-color: darkgreen;
+        }
+        button#no-button {
+            background-color: red;
+        }
+        button#no-button:hover {
+            background-color: darkred;
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes heartExplosion {
+            0% { transform: scale(0.5); opacity: 0; }
+            40% { transform: scale(0.8); opacity: 0.6; }
+            70% { transform: scale(1.0); opacity: 1; }
+            90% { transform: scale(1.2); opacity: 0.2; }
+            100% {transform: scale(1.0); opacity: 0; }
+        }
+        
+        .heart {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            transform: rotate(-45deg);
+            opacity: 0;
+            animation: heartExplosion 4s ease-in-out forwards;
+        }
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -25px;
+            left: 0;
+        }
+        .heart::after {
+            left: 25px;
+            top: 0;
+        }
+        @media (max-width: 768px) {
+            #valentine-question {
+                font-size: 1.5em;
+            }
+            button {
+                font-size: 1.2em;
+                padding: 8px 16px;
+            }
+            #yay-text {
+                font-size: 2em;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="valentine-content">
+        <div id="valentine-photo">
+            <div id="valentine-question">Będziesz moją walentynką?</div>
+            <button id="yes-button" onclick="checkResponse('yes')">Tak</button>
+            <button id="no-button">Nie</button>
+        </div>
+        <div id="yay-text">Yayyyyy!!! Kocham Cię Tosiu<333</div>
+    </div>
+
+    <script>
+        let yesButtonScale = 1; // Początkowy rozmiar przycisku "Tak"
+        let noButtonHoverCount = 0; // Licznik najechań na przycisk "Nie"
+
+        document.getElementById('no-button').addEventListener('mouseover', function() {
+            teleportNoButton();
+            increaseYesButtonSize(); // Zwiększ rozmiar przycisku "Tak"
+        });
+        
+        function checkResponse(response) {
+            if (response === 'yes') {
+                // Dodaj animację zanikania
+                document.getElementById('valentine-photo').style.animation = "fadeOut 1s ease-in-out forwards";
+                document.getElementById('valentine-question').style.animation = "fadeOut 1s ease-in-out forwards";
+                
+                // Zmiana tła po czasie
+                setTimeout(() => {
+                    document.getElementById('valentine-content').style.backgroundImage = "url('https://bloximages.chicago2.vip.townnews.com/kenoshanews.com/content/tncms/assets/v3/editorial/8/d1/8d1168aa-10bc-5177-9833-aeda20c2a59f/62055d46c1a92.image.jpg?resize=750%2C500')";
+                    
+                    // Pokaż tekst z efektem
+                    const yayText = document.getElementById('yay-text');
+                    yayText.style.display = 'block';
+        
+                    // Dodaj serca jako animację
+                    createHearts();
+                }, 1000);
+            }
+        }
+        
+        function teleportNoButton() {
+            var button = document.getElementById('no-button');
+            var maxX = window.innerWidth - button.offsetWidth;
+            var maxY = window.innerHeight - button.offsetHeight;
+        
+            var randomX = Math.floor(Math.random() * maxX);
+            var randomY = Math.floor(Math.random() * maxY);
+        
+            button.style.position = 'absolute';
+            button.style.left = randomX + 'px';
+            button.style.top = randomY + 'px';
+        }
+        
+        // Funkcja do zwiększania rozmiaru przycisku "Tak"
+        function increaseYesButtonSize() {
+            yesButtonScale += 0.1; // Zwiększa rozmiar o 50%
+            document.getElementById('yes-button').style.transform = `scale(${yesButtonScale})`; // Zastosowanie nowego rozmiaru
+        }
+
+        document.getElementById('no-button').addEventListener('mouseover', function() {
+            teleportNoButton();
+        });
+
+        function createHearts() {
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.top = Math.random() * window.innerHeight + 'px';
+                heart.style.animationDelay = `${Math.random() * 2}s`;
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000);
+            }
+        }
+    </script>
+</body>
+</html>
