@@ -186,7 +186,6 @@
                 }, 1000);
             }
         }
-        
         function teleportNoButton() {
         var button = document.getElementById('no-button');
         var valentinePhoto = document.getElementById('valentine-photo');
@@ -236,11 +235,16 @@
             randomY = Math.floor(Math.random() * maxY);
         } while (isButtonOverlapping(randomX, randomY)); // Sprawdzamy, czy pozycja nie koliduje
 
+        // Zapewniamy, że przycisk nie wyjdzie poza widoczny obszar strony
+        randomX = Math.min(randomX, maxX); // Zapewnia, że X nie przekroczy prawej krawędzi
+        randomY = Math.min(randomY, maxY); // Zapewnia, że Y nie przekroczy dolnej krawędzi
+
         // Ustawiamy nową pozycję przycisku
         button.style.position = 'absolute';
         button.style.left = randomX + 'px';
         button.style.top = randomY + 'px';
     }
+       
         
         // Funkcja do zwiększania rozmiaru przycisku "Tak"
         function increaseYesButtonSize() {
