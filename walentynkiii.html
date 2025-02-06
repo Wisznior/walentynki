@@ -32,7 +32,7 @@
             z-index: -1;
         }
         #background-gif {
-            width: 40%; /* Zmieniamy rozmiar na 100% szerokości ekranu */
+            width: 40%; /* Standardowa szerokość GIF-a */
             height: auto; /* Zachowanie proporcji GIF-a */
             animation: none;
             animation: auto;
@@ -92,8 +92,19 @@
         }
         @media (max-width: 768px) {
             #background-gif {
-                width: 120%; /* Większy rozmiar na telefonach */                
-                margin-top: -1000px; 
+                width: 80%; /* Zwiększenie rozmiaru GIF-a na telefonach */
+                margin-top: -100px; /* Ustawienie GIF-a nieco wyżej na telefonach */
+            }
+            #valentine-question {
+                font-size: 2em; /* Dostosowanie wielkości pytania na telefonach */
+            }
+            button {
+                font-size: 1.2em;
+                padding: 8px 16px;
+            }
+            #yay-text {
+                font-size: 2em;
+                padding: 15px;
             }
         }
         @keyframes fadeOut {
@@ -137,19 +148,6 @@
         .heart::after {
             left: 25px;
             top: 0;
-        }
-        @media (max-width: 768px) {
-            #valentine-question {
-                font-size: 1.5em;
-            }
-            button {
-                font-size: 1.2em;
-                padding: 8px 16px;
-            }
-            #yay-text {
-                font-size: 2em;
-                padding: 15px;
-            }
         }
     </style>
 </head>
@@ -307,3 +305,4 @@
     </script>
 </body>
 </html>
+
