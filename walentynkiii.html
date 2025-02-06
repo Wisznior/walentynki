@@ -174,32 +174,37 @@
             increaseYesButtonSize(); // Zwiększ rozmiar przycisku "Tak"
         });
 
-        function checkResponse(response) {
-        if (response === 'yes') {
-            // Dodaj animację zanikania dla pytania i przycisku "Tak"
-            document.getElementById('valentine-photo').style.animation = "fadeOut 1s ease-in-out forwards";
-            document.getElementById('valentine-question').style.animation = "fadeOut 1s ease-in-out forwards";
-            document.getElementById('yes-button').style.animation = "fadeOut 1s ease-in-out forwards";
-            
-            // Po zakończeniu animacji ukrywamy elementy
-            setTimeout(() => {
-                document.getElementById('valentine-question').style.display = 'none';
-                document.getElementById('yes-button').style.display = 'none';
-                document.getElementById('no-button').style.display = 'none';  
-                // Zmiana tła po czasie
-                setTimeout(() => {
-                    document.getElementById('background-gif').src = "https://bloximages.chicago2.vip.townnews.com/kenoshanews.com/content/tncms/assets/v3/editorial/8/d1/8d1168aa-10bc-5177-9833-aeda20c2a59f/62055d46c1a92.image.jpg?resize=750%2C500";
-
-                    // Pokaż tekst z efektem
-                    const yayText = document.getElementById('yay-text');
-                    yayText.style.display = 'block';
-
-                    // Dodaj serca jako animację
-                    createHearts();
-                }, 1000);
-            }, 1000);  // Czas trwania animacji zanikania
-        }
-    }
+         function checkResponse(response) {
+                if (response === 'yes') {
+                    // Dodaj animację zanikania dla pytania i przycisku "Tak"
+                    document.getElementById('valentine-photo').style.animation = "fadeOut 1s ease-in-out forwards";
+                    document.getElementById('valentine-question').style.animation = "fadeOut 1s ease-in-out forwards";
+                    document.getElementById('yes-button').style.animation = "fadeOut 1s ease-in-out forwards";
+                    document.getElementById('no-button').style.animation = "fadeOut 1s ease-in-out forwards";  // Dodanie zanikania dla przycisku "Nie"
+                    
+                    // Po zakończeniu animacji ukrywamy elementy
+                    setTimeout(() => {
+                        document.getElementById('valentine-question').style.display = 'none';
+                        document.getElementById('yes-button').style.display = 'none';
+                        document.getElementById('no-button').style.display = 'none';  // Ukrywanie przycisku "Nie"
+        
+                        // Zmiana tła na nowy GIF
+                        setTimeout(() => {
+                            const gif = document.getElementById('background-gif');
+                            gif.src = "https://www.icegif.com/wp-content/uploads/snoopy-valentine-icegif-6.gif";  // Nowy GIF
+                            gif.loop = true; // Ustawienie GIF na odtwarzanie w pętli
+                            gif.style.animation = 'none'; // Zatrzymanie ewentualnej animacji (aby GIF odtwarzał się normalnie)
+                        }, 1000);
+        
+                        // Pokaż tekst z efektem
+                        const yayText = document.getElementById('yay-text');
+                        yayText.style.display = 'block';
+        
+                        // Dodaj serca jako animację
+                        createHearts();
+                    }, 1000);  // Czas trwania animacji zanikania
+                }
+            }
         function teleportNoButton() {
             var button = document.getElementById('no-button');
             var valentinePhoto = document.getElementById('valentine-photo');
