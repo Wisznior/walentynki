@@ -28,8 +28,11 @@
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            text-align: center;
-            z-index: -1;
+            height: 100%;
+            background-image: url('https://i.pinimg.com/originals/b9/fa/ce/b9face3b1dc6ad22dec58097acb56e68.gif');
+            background-size: cover; /* Dopasowanie GIF-a do całego ekranu */
+            background-position: center center;
+            animation: loopBackground 3s infinite; /* Animacja zapętlona */
         }
         #background-gif {
             width: 40%; /* Zmieniamy rozmiar na 100% szerokości ekranu */
@@ -88,6 +91,14 @@
         }
         button#no-button:hover {
             background-color: darkred;
+        }
+        @keyframes loopBackground {
+            0% {
+                background-position: center center;
+            }
+            100% {
+                background-position: center center;
+            }
         }
         @keyframes fadeOut {
             from { opacity: 1; }
