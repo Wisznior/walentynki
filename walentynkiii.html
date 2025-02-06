@@ -115,7 +115,7 @@
             position: absolute;
             width: 50px;
             height: 50px;
-            background-color: red;
+            background-color: pink;
             transform: rotate(-45deg);
             opacity: 0;
             animation: heartExplosion 4s ease-in-out forwards;
@@ -278,7 +278,7 @@
         });
 
         function createHearts() {
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 30; i++) {
                 const heart = document.createElement('div');
                 heart.classList.add('heart');
                 heart.style.left = Math.random() * window.innerWidth + 'px';
