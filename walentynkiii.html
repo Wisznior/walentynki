@@ -175,10 +175,16 @@
         });
 
         function checkResponse(response) {
-            if (response === 'yes') {
-                // Dodaj animację zanikania
-                document.getElementById('valentine-photo').style.animation = "fadeOut 1s ease-in-out forwards";
-                document.getElementById('valentine-question').style.animation = "fadeOut 1s ease-in-out forwards";
+        if (response === 'yes') {
+            // Dodaj animację zanikania dla pytania i przycisku "Tak"
+            document.getElementById('valentine-photo').style.animation = "fadeOut 1s ease-in-out forwards";
+            document.getElementById('valentine-question').style.animation = "fadeOut 1s ease-in-out forwards";
+            document.getElementById('yes-button').style.animation = "fadeOut 1s ease-in-out forwards";
+            
+            // Po zakończeniu animacji ukrywamy elementy
+            setTimeout(() => {
+                document.getElementById('valentine-question').style.display = 'none';
+                document.getElementById('yes-button').style.display = 'none';
 
                 // Zmiana tła po czasie
                 setTimeout(() => {
@@ -191,8 +197,9 @@
                     // Dodaj serca jako animację
                     createHearts();
                 }, 1000);
-            }
+            }, 1000);  // Czas trwania animacji zanikania
         }
+    }
         function teleportNoButton() {
             var button = document.getElementById('no-button');
             var valentinePhoto = document.getElementById('valentine-photo');
