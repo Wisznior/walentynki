@@ -90,6 +90,11 @@
         button#no-button:hover {
             background-color: darkred;
         }
+        @media (max-width: 768px) {
+            #background-gif {
+                width: 80%; /* Większy rozmiar na telefonach */                }
+            }
+        }
         @keyframes fadeOut {
             from { opacity: 1; }
             to { opacity: 0; }
@@ -179,9 +184,6 @@
                 setTimeout(() => {
                     document.getElementById('background-gif').src = "https://bloximages.chicago2.vip.townnews.com/kenoshanews.com/content/tncms/assets/v3/editorial/8/d1/8d1168aa-10bc-5177-9833-aeda20c2a59f/62055d46c1a92.image.jpg?resize=750%2C500";
 
-                    // Zmiana tekstu
-                    document.getElementById('valentine-question').textContent = "Kocham Cię Tosiu<333";
-
                     // Pokaż tekst z efektem
                     const yayText = document.getElementById('yay-text');
                     yayText.style.display = 'block';
@@ -191,24 +193,23 @@
                 }, 1000);
             }
         }
-
         function teleportNoButton() {
             var button = document.getElementById('no-button');
             var valentinePhoto = document.getElementById('valentine-photo');
             var valentineQuestion = document.getElementById('valentine-question');
             var yesButton = document.getElementById('yes-button');
-    
+
             // Pobierz rozmiary okna i przycisku
             var maxX = window.innerWidth - button.offsetWidth; // Szerokość okna - szerokość przycisku
             var maxY = window.innerHeight - button.offsetHeight; // Wysokość okna - wysokość przycisku
-    
+
             // Funkcja sprawdzająca, czy przycisk "Nie" nie nakłada się na inne elementy
             function isButtonOverlapping(x, y) {
                 // Pobierz pozycje innych elementów na stronie
                 var valentinePhotoRect = valentinePhoto.getBoundingClientRect();
                 var valentineQuestionRect = valentineQuestion.getBoundingClientRect();
                 var yesButtonRect = yesButton.getBoundingClientRect();
-    
+
                 // Sprawdzamy, czy pozycja przycisku nie koliduje z żadnym z elementów
                 if (
                     x + button.offsetWidth > valentinePhotoRect.left && x < valentinePhotoRect.right &&
@@ -216,35 +217,35 @@
                 ) {
                     return true; // Koliduje z #valentine-photo
                 }
-    
+
                 if (
                     x + button.offsetWidth > valentineQuestionRect.left && x < valentineQuestionRect.right &&
                     y + button.offsetHeight > valentineQuestionRect.top && y < valentineQuestionRect.bottom
                 ) {
                     return true; // Koliduje z #valentine-question
                 }
-    
+
                 if (
                     x + button.offsetWidth > yesButtonRect.left && x < yesButtonRect.right &&
                     y + button.offsetHeight > yesButtonRect.top && y < yesButtonRect.bottom
                 ) {
                     return true; // Koliduje z #yes-button
                 }
-    
+
                 return false; // Brak kolizji
             }
-    
+
             // Losowanie pozycji, aż przycisk nie koliduje z innymi elementami
             var randomX, randomY;
             do {
                 randomX = Math.floor(Math.random() * maxX);
                 randomY = Math.floor(Math.random() * maxY);
             } while (isButtonOverlapping(randomX, randomY)); // Sprawdzamy, czy pozycja nie koliduje
-    
+
             // Zapewniamy, że przycisk nie wyjdzie poza widoczny obszar strony
             randomX = Math.min(randomX, maxX); // Zapewnia, że X nie przekroczy prawej krawędzi
             randomY = Math.min(randomY, maxY); // Zapewnia, że Y nie przekroczy dolnej krawędzi
-    
+
             // Ustawiamy nową pozycję przycisku
             button.style.position = 'absolute';
             button.style.left = randomX + 'px';
@@ -256,6 +257,10 @@
             yesButtonScale += 0.1; // Zwiększa rozmiar o 50%
             document.getElementById('yes-button').style.transform = `scale(${yesButtonScale})`; // Zastosowanie nowego rozmiaru
         }
+
+        document.getElementById('no-button').addEventListener('mouseover', function() {
+            teleportNoButton();
+        });
 
         function createHearts() {
             for (let i = 0; i < 50; i++) {
@@ -271,6 +276,18 @@
                 }, 6000);
             }
         }
+        // Function to restart the GIF to ensure it loops
+        function restartGif() {
+            const gif = document.getElementById('background-gif');
+            const currentSrc = gif.src;
+            gif.src = ''; // Temporarily clear the source
+            gif.src = currentSrc; // Reset the source to the original GIF
+        }
+
+        // Restart the GIF every 10 seconds to simulate looping
+        document.addEventListener('DOMContentLoaded', function () {
+            setInterval(restartGif, 3000); // Restart GIF every 10 seconds
+        });
     </script>
 </body>
 </html>
