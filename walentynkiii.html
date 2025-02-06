@@ -32,24 +32,55 @@
             z-index: -1;
         }
         #background-gif {
-            width: 40%; /* Zmieniamy rozmiar na 100% szerokości ekranu */
+            width: 40%; /* Zmieniamy rozmiar na 40% szerokości ekranu */
             height: auto; /* Zachowanie proporcji GIF-a */
-            animation: none;
-            animation: auto;
         }
+
+        #background-gif-2 {
+            width: 20%; /* Początkowy rozmiar drugiego GIF-a */
+            height: auto; /* Zachowanie proporcji */
+            animation: none;
+        }
+
+        @media (max-width: 768px) {
+            #background-gif {
+                width: 40%; /* Większy rozmiar pierwszego GIF-a na telefonach */
+            }
+
+            #background-gif-2 {
+                width: 50%; /* Zwiększamy rozmiar drugiego GIF-a na telefonach */
+            }
+
+            #valentine-question {
+                font-size: 1.5em;
+            }
+
+            button {
+                font-size: 1.2em;
+                padding: 8px 16px;
+            }
+
+            #yay-text {
+                font-size: 2em;
+                padding: 15px;
+            }
+        }
+
         #valentine-question {
             font-size: 4em;
-            margin-bottom: 20px; /* Zwiększenie odstępu poniżej pytania */
-            opacity: 1; /* Zapewnia widoczność od razu */
+            margin-bottom: 20px;
+            opacity: 1;
         }
+
         #valentine-photo {
             padding: 20px;
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             text-align: center;
-            opacity: 1; /* Zapewnia pełną widoczność */
-            margin-top: 0; /* Usunięcie przesunięcia w górę */
+            opacity: 1;
+            margin-top: 0;
         }
+
         #yay-text {
             display: none;
             font-size: 3em;
@@ -62,6 +93,7 @@
             text-align: center;
             margin-top: 20px;
         }
+
         button {
             cursor: pointer;
             font-size: 1.5em;
@@ -72,43 +104,47 @@
             color: white;
             transition: transform 0.2s ease, background-color 0.3s ease;
         }
+
         button:hover {
             transform: scale(1.1);
         }
+
         button:active {
             transform: scale(0.9);
         }
+
         button#yes-button {
             background-color: green;
         }
+
         button#yes-button:hover {
             background-color: darkgreen;
         }
+
         button#no-button {
             background-color: red;
         }
+
         button#no-button:hover {
             background-color: darkred;
         }
-        @media (max-width: 768px) {
-            #background-gif {
-                width: 70%; /* Większy rozmiar na telefonach */                }
-            }
-        }
+
         @keyframes fadeOut {
             from { opacity: 1; }
             to { opacity: 0; }
         }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
         @keyframes heartExplosion {
             0% { transform: scale(0.5); opacity: 0; }
             40% { transform: scale(0.8); opacity: 0.6; }
             70% { transform: scale(1.0); opacity: 1; }
             90% { transform: scale(1.2); opacity: 0.2; }
-            100% {transform: scale(1.0); opacity: 0; }
+            100% { transform: scale(1.0); opacity: 0; }
         }
 
         .heart {
@@ -120,6 +156,7 @@
             opacity: 0;
             animation: heartExplosion 4s ease-in-out forwards;
         }
+
         .heart::before,
         .heart::after {
             content: '';
@@ -129,27 +166,17 @@
             background-color: #FF1493;
             border-radius: 50%;
         }
+
         .heart::before {
             top: -25px;
             left: 0;
         }
+
         .heart::after {
             left: 25px;
             top: 0;
         }
-        @media (max-width: 768px) {
-            #valentine-question {
-                font-size: 1.5em;
-            }
-            button {
-                font-size: 1.2em;
-                padding: 8px 16px;
-            }
-            #yay-text {
-                font-size: 2em;
-                padding: 15px;
-            }
-        }
+
     </style>
 </head>
 <body>
@@ -163,119 +190,102 @@
     </div>
     <div id="background-container">
         <img id="background-gif" src="https://i.pinimg.com/originals/b9/fa/ce/b9face3b1dc6ad22dec58097acb56e68.gif" alt="Valentine GIF" loop>
+        <img id="background-gif-2" src="https://i.pinimg.com/originals/b2/c8/5b/b2c85bda67c05e092c5c0d53aeda26f7.gif" alt="Valentine GIF" loop>
     </div>
 
     <script>
-        let yesButtonScale = 1; // Początkowy rozmiar przycisku "Tak"
-        let noButtonHoverCount = 0; // Licznik najechań na przycisk "Nie"
+        let yesButtonScale = 1;
+        let noButtonHoverCount = 0;
 
         document.getElementById('no-button').addEventListener('mouseover', function() {
             teleportNoButton();
-            increaseYesButtonSize(); // Zwiększ rozmiar przycisku "Tak"
+            increaseYesButtonSize();
         });
 
         function checkResponse(response) {
             if (response === 'yes') {
-                // Dodaj animację zanikania dla pytania i przycisku "Tak"
                 document.getElementById('valentine-photo').style.animation = "fadeOut 1s ease-in-out forwards";
                 document.getElementById('valentine-question').style.animation = "fadeOut 1s ease-in-out forwards";
                 document.getElementById('yes-button').style.animation = "fadeOut 1s ease-in-out forwards";
-                document.getElementById('no-button').style.animation = "fadeOut 1s ease-in-out forwards";  // Dodanie zanikania dla przycisku "Nie"
-                
-                // Po zakończeniu animacji ukrywamy elementy
+                document.getElementById('no-button').style.animation = "fadeOut 1s ease-in-out forwards";
+
                 setTimeout(() => {
                     document.getElementById('valentine-question').style.display = 'none';
                     document.getElementById('yes-button').style.display = 'none';
-                    document.getElementById('no-button').style.display = 'none';  // Ukrywanie przycisku "Nie"
-    
-                    // Dodanie animacji zanikania dla GIF-a
+                    document.getElementById('no-button').style.display = 'none';
+                    
                     const gif = document.getElementById('background-gif');
-                    gif.style.animation = "fadeOut 1s ease-in-out forwards";  // Animacja zanikania GIF-a
+                    gif.style.animation = "fadeOut 1s ease-in-out forwards";
     
-                    // Po zakończeniu animacji zmieniamy tło
                     setTimeout(() => {
-                        gif.src = "https://i.pinimg.com/originals/b2/c8/5b/b2c85bda67c05e092c5c0d53aeda26f7.gif";  // Nowy GIF
-                        gif.style.animation = 'none'; // Zatrzymanie animacji, aby GIF odtwarzał się normalnie
-                        gif.loop = true; // Ustawienie GIF na odtwarzanie w pętli
-                    }, 100);  // Zmiana GIF-a po zakończeniu animacji zanikania
-    
-                    // Pokaż tekst z efektem
+                        gif.src = "https://i.pinimg.com/originals/b2/c8/5b/b2c85bda67c05e092c5c0d53aeda26f7.gif";
+                        gif.style.animation = 'none';
+                        gif.loop = true;
+                    }, 100);
+
                     const yayText = document.getElementById('yay-text');
                     yayText.style.display = 'block';
-    
-                    // Dodaj serca jako animację
                     createHearts();
-                }, 1000);  // Czas trwania animacji zanikania
+                }, 1000);
             }
         }
+
         function teleportNoButton() {
             var button = document.getElementById('no-button');
             var valentinePhoto = document.getElementById('valentine-photo');
             var valentineQuestion = document.getElementById('valentine-question');
             var yesButton = document.getElementById('yes-button');
 
-            // Pobierz rozmiary okna i przycisku
-            var maxX = window.innerWidth - button.offsetWidth; // Szerokość okna - szerokość przycisku
-            var maxY = window.innerHeight - button.offsetHeight; // Wysokość okna - wysokość przycisku
+            var maxX = window.innerWidth - button.offsetWidth;
+            var maxY = window.innerHeight - button.offsetHeight;
 
-            // Funkcja sprawdzająca, czy przycisk "Nie" nie nakłada się na inne elementy
             function isButtonOverlapping(x, y) {
-                // Pobierz pozycje innych elementów na stronie
                 var valentinePhotoRect = valentinePhoto.getBoundingClientRect();
                 var valentineQuestionRect = valentineQuestion.getBoundingClientRect();
                 var yesButtonRect = yesButton.getBoundingClientRect();
 
-                // Sprawdzamy, czy pozycja przycisku nie koliduje z żadnym z elementów
                 if (
                     x + button.offsetWidth > valentinePhotoRect.left && x < valentinePhotoRect.right &&
                     y + button.offsetHeight > valentinePhotoRect.top && y < valentinePhotoRect.bottom
                 ) {
-                    return true; // Koliduje z #valentine-photo
+                    return true;
                 }
 
                 if (
                     x + button.offsetWidth > valentineQuestionRect.left && x < valentineQuestionRect.right &&
                     y + button.offsetHeight > valentineQuestionRect.top && y < valentineQuestionRect.bottom
                 ) {
-                    return true; // Koliduje z #valentine-question
+                    return true;
                 }
 
                 if (
                     x + button.offsetWidth > yesButtonRect.left && x < yesButtonRect.right &&
                     y + button.offsetHeight > yesButtonRect.top && y < yesButtonRect.bottom
                 ) {
-                    return true; // Koliduje z #yes-button
+                    return true;
                 }
 
-                return false; // Brak kolizji
+                return false;
             }
 
-            // Losowanie pozycji, aż przycisk nie koliduje z innymi elementami
             var randomX, randomY;
             do {
                 randomX = Math.floor(Math.random() * maxX);
                 randomY = Math.floor(Math.random() * maxY);
-            } while (isButtonOverlapping(randomX, randomY)); // Sprawdzamy, czy pozycja nie koliduje
+            } while (isButtonOverlapping(randomX, randomY));
 
-            // Zapewniamy, że przycisk nie wyjdzie poza widoczny obszar strony
-            randomX = Math.min(randomX, maxX); // Zapewnia, że X nie przekroczy prawej krawędzi
-            randomY = Math.min(randomY, maxY); // Zapewnia, że Y nie przekroczy dolnej krawędzi
+            randomX = Math.min(randomX, maxX);
+            randomY = Math.min(randomY, maxY);
 
-            // Ustawiamy nową pozycję przycisku
             button.style.position = 'absolute';
             button.style.left = randomX + 'px';
             button.style.top = randomY + 'px';
         }
 
-        // Funkcja do zwiększania rozmiaru przycisku "Tak"
         function increaseYesButtonSize() {
-            yesButtonScale += 0.1; // Zwiększa rozmiar o 50%
-            document.getElementById('yes-button').style.transform = `scale(${yesButtonScale})`; // Zastosowanie nowego rozmiaru
+            yesButtonScale += 0.1;
+            document.getElementById('yes-button').style.transform = `scale(${yesButtonScale})`;
         }
-
-        document.getElementById('no-button').addEventListener('mouseover', function() {
-            teleportNoButton();
-        });
 
         function createHearts() {
             for (let i = 0; i < 30; i++) {
@@ -291,18 +301,6 @@
                 }, 6000);
             }
         }
-        // Function to restart the GIF to ensure it loops
-        function restartGif() {
-            const gif = document.getElementById('background-gif');
-            const currentSrc = gif.src;
-            gif.src = ''; // Temporarily clear the source
-            gif.src = currentSrc; // Reset the source to the original GIF
-        }
-
-        // Restart the GIF every 10 seconds to simulate looping
-        document.addEventListener('DOMContentLoaded', function () {
-            setInterval(restartGif, 3000); // Restart GIF every 10 seconds
-        });
     </script>
 </body>
 </html>
