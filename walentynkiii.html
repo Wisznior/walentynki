@@ -174,37 +174,40 @@
             increaseYesButtonSize(); // Zwiększ rozmiar przycisku "Tak"
         });
 
-         function checkResponse(response) {
-                if (response === 'yes') {
-                    // Dodaj animację zanikania dla pytania i przycisku "Tak"
-                    document.getElementById('valentine-photo').style.animation = "fadeOut 1s ease-in-out forwards";
-                    document.getElementById('valentine-question').style.animation = "fadeOut 1s ease-in-out forwards";
-                    document.getElementById('yes-button').style.animation = "fadeOut 1s ease-in-out forwards";
-                    document.getElementById('no-button').style.animation = "fadeOut 1s ease-in-out forwards";  // Dodanie zanikania dla przycisku "Nie"
-                    
-                    // Po zakończeniu animacji ukrywamy elementy
+        function checkResponse(response) {
+            if (response === 'yes') {
+                // Dodaj animację zanikania dla pytania i przycisku "Tak"
+                document.getElementById('valentine-photo').style.animation = "fadeOut 1s ease-in-out forwards";
+                document.getElementById('valentine-question').style.animation = "fadeOut 1s ease-in-out forwards";
+                document.getElementById('yes-button').style.animation = "fadeOut 1s ease-in-out forwards";
+                document.getElementById('no-button').style.animation = "fadeOut 1s ease-in-out forwards";  // Dodanie zanikania dla przycisku "Nie"
+                
+                // Po zakończeniu animacji ukrywamy elementy
+                setTimeout(() => {
+                    document.getElementById('valentine-question').style.display = 'none';
+                    document.getElementById('yes-button').style.display = 'none';
+                    document.getElementById('no-button').style.display = 'none';  // Ukrywanie przycisku "Nie"
+    
+                    // Dodanie animacji zanikania dla GIF-a
+                    const gif = document.getElementById('background-gif');
+                    gif.style.animation = "fadeOut 1s ease-in-out forwards";  // Animacja zanikania GIF-a
+    
+                    // Po zakończeniu animacji zmieniamy tło
                     setTimeout(() => {
-                        document.getElementById('valentine-question').style.display = 'none';
-                        document.getElementById('yes-button').style.display = 'none';
-                        document.getElementById('no-button').style.display = 'none';  // Ukrywanie przycisku "Nie"
-        
-                        // Zmiana tła na nowy GIF
-                        setTimeout(() => {
-                            const gif = document.getElementById('background-gif');
-                            gif.src = "https://i.pinimg.com/originals/84/a4/ba/84a4ba2ce0a2f09248396c899f2102e3.gif";  // Nowy GIF
-                            gif.loop = true; // Ustawienie GIF na odtwarzanie w pętli
-                            gif.style.animation = 'none'; // Zatrzymanie ewentualnej animacji (aby GIF odtwarzał się normalnie)
-                        }, 1000);
-        
-                        // Pokaż tekst z efektem
-                        const yayText = document.getElementById('yay-text');
-                        yayText.style.display = 'block';
-        
-                        // Dodaj serca jako animację
-                        createHearts();
-                    }, 1000);  // Czas trwania animacji zanikania
-                }
+                        gif.src = "https://i.pinimg.com/originals/b2/c8/5b/b2c85bda67c05e092c5c0d53aeda26f7.gif";  // Nowy GIF
+                        gif.style.animation = 'none'; // Zatrzymanie animacji, aby GIF odtwarzał się normalnie
+                        gif.loop = true; // Ustawienie GIF na odtwarzanie w pętli
+                    }, 1000);  // Zmiana GIF-a po zakończeniu animacji zanikania
+    
+                    // Pokaż tekst z efektem
+                    const yayText = document.getElementById('yay-text');
+                    yayText.style.display = 'block';
+    
+                    // Dodaj serca jako animację
+                    createHearts();
+                }, 1000);  // Czas trwania animacji zanikania
             }
+        }
         function teleportNoButton() {
             var button = document.getElementById('no-button');
             var valentinePhoto = document.getElementById('valentine-photo');
