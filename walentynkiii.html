@@ -189,64 +189,68 @@
             }
         }
         function teleportNoButton() {
-        var button = document.getElementById('no-button');
-        var valentinePhoto = document.getElementById('valentine-photo');
-        var valentineQuestion = document.getElementById('valentine-question');
-        var yesButton = document.getElementById('yes-button');
-
-        // Pobierz rozmiary okna i przycisku
-        var maxX = window.innerWidth - button.offsetWidth; // Szerokość okna - szerokość przycisku
-        var maxY = window.innerHeight - button.offsetHeight; // Wysokość okna - wysokość przycisku
-
-        // Funkcja sprawdzająca, czy przycisk "Nie" nie nakłada się na inne elementy
-        function isButtonOverlapping(x, y) {
-            // Pobierz pozycje innych elementów na stronie
-            var valentinePhotoRect = valentinePhoto.getBoundingClientRect();
-            var valentineQuestionRect = valentineQuestion.getBoundingClientRect();
-            var yesButtonRect = yesButton.getBoundingClientRect();
-
-            // Sprawdzamy, czy pozycja przycisku nie koliduje z żadnym z elementów
-            if (
-                x + button.offsetWidth > valentinePhotoRect.left && x < valentinePhotoRect.right &&
-                y + button.offsetHeight > valentinePhotoRect.top && y < valentinePhotoRect.bottom
-            ) {
-                return true; // Koliduje z #valentine-photo
+            var button = document.getElementById('no-button');
+            var valentinePhoto = document.getElementById('valentine-photo');
+            var valentineQuestion = document.getElementById('valentine-question');
+            var yesButton = document.getElementById('yes-button');
+    
+            // Pobierz rozmiary okna i przycisku
+            var maxX = window.innerWidth - button.offsetWidth; // Szerokość okna - szerokość przycisku
+            var maxY = window.innerHeight - button.offsetHeight; // Wysokość okna - wysokość przycisku
+    
+            // Funkcja sprawdzająca, czy przycisk "Nie" nie nakłada się na inne elementy
+            function isButtonOverlapping(x, y) {
+                // Pobierz pozycje innych elementów na stronie
+                var valentinePhotoRect = valentinePhoto.getBoundingClientRect();
+                var valentineQuestionRect = valentineQuestion.getBoundingClientRect();
+                var yesButtonRect = yesButton.getBoundingClientRect();
+    
+                // Sprawdzamy, czy pozycja przycisku nie koliduje z żadnym z elementów
+                if (
+                    x + button.offsetWidth > valentinePhotoRect.left && x < valentinePhotoRect.right &&
+                    y + button.offsetHeight > valentinePhotoRect.top && y < valentinePhotoRect.bottom
+                ) {
+                    return true; // Koliduje z #valentine-photo
+                }
+    
+                if (
+                    x + button.offsetWidth > valentineQuestionRect.left && x < valentineQuestionRect.right &&
+                    y + button.offsetHeight > valentineQuestionRect.top && y < valentineQuestionRect.bottom
+                ) {
+                    return true; // Koliduje z #valentine-question
+                }
+    
+                if (
+                    x + button.offsetWidth > yesButtonRect.left && x < yesButtonRect.right &&
+                    y + button.offsetHeight > yesButtonRect.top && y < yesButtonRect.bottom
+                ) {
+                    return true; // Koliduje z #yes-button
+                }
+    
+                return false; // Brak kolizji
             }
-
-            if (
-                x + button.offsetWidth > valentineQuestionRect.left && x < valentineQuestionRect.right &&
-                y + button.offsetHeight > valentineQuestionRect.top && y < valentineQuestionRect.bottom
-            ) {
-                return true; // Koliduje z #valentine-question
-            }
-
-            if (
-                x + button.offsetWidth > yesButtonRect.left && x < yesButtonRect.right &&
-                y + button.offsetHeight > yesButtonRect.top && y < yesButtonRect.bottom
-            ) {
-                return true; // Koliduje z #yes-button
-            }
-
-            return false; // Brak kolizji
+    
+            // Losowanie pozycji, aż przycisk nie koliduje z innymi elementami
+            var randomX, randomY;
+            do {
+                randomX = Math.floor(Math.random() * maxX);
+                randomY = Math.floor(Math.random() * maxY);
+            } while (isButtonOverlapping(randomX, randomY)); // Sprawdzamy, czy pozycja nie koliduje
+    
+            // Zapewniamy, że przycisk nie wyjdzie poza widoczny obszar strony
+            randomX = Math.min(randomX, maxX); // Zapewnia, że X nie przekroczy prawej krawędzi
+            randomY = Math.min(randomY, maxY); // Zapewnia, że Y nie przekroczy dolnej krawędzi
+    
+            // Ustawiamy nową pozycję przycisku
+            button.style.position = 'absolute';
+            button.style.left = randomX + 'px';
+            button.style.top = randomY + 'px';
         }
 
-        // Losowanie pozycji, aż przycisk nie koliduje z innymi elementami
-        var randomX, randomY;
-        do {
-            randomX = Math.floor(Math.random() * maxX);
-            randomY = Math.floor(Math.random() * maxY);
-        } while (isButtonOverlapping(randomX, randomY)); // Sprawdzamy, czy pozycja nie koliduje
-
-        // Zapewniamy, że przycisk nie wyjdzie poza widoczny obszar strony
-        randomX = Math.min(randomX, maxX); // Zapewnia, że X nie przekroczy prawej krawędzi
-        randomY = Math.min(randomY, maxY); // Zapewnia, że Y nie przekroczy dolnej krawędzi
-
-        // Ustawiamy nową pozycję przycisku
-        button.style.position = 'absolute';
-        button.style.left = randomX + 'px';
-        button.style.top = randomY + 'px';
-    }
-
+        document.addEventListener('DOMContentLoaded', function () {
+            // Restart the GIF every 10 seconds
+            setInterval(restartGif, 5000);
+        });
 
         // Funkcja do zwiększania rozmiaru przycisku "Tak"
         function increaseYesButtonSize() {
