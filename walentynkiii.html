@@ -247,11 +247,6 @@
             button.style.top = randomY + 'px';
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Restart the GIF every 10 seconds
-            setInterval(restartGif, 5000);
-        });
-
         // Funkcja do zwiększania rozmiaru przycisku "Tak"
         function increaseYesButtonSize() {
             yesButtonScale += 0.1; // Zwiększa rozmiar o 50%
@@ -276,6 +271,18 @@
                 }, 6000);
             }
         }
+        // Function to restart the GIF to ensure it loops
+        function restartGif() {
+            const gif = document.getElementById('background-gif');
+            const currentSrc = gif.src;
+            gif.src = ''; // Temporarily clear the source
+            gif.src = currentSrc; // Reset the source to the original GIF
+        }
+
+        // Restart the GIF every 10 seconds to simulate looping
+        document.addEventListener('DOMContentLoaded', function () {
+            setInterval(restartGif, 10000); // Restart GIF every 10 seconds
+        });
     </script>
 </body>
 </html>
